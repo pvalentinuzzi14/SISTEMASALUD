@@ -83,26 +83,29 @@ public class SSM {
 			throw new ReactivosException("Persona ya testeada", p);
 			
 		}
-			if(numeroKit==getCantidadTest())
-		{
-		int numKit = numeroKit++;
-		KitReactivo kit = new KitReactivo(numKit);
-		p.setKit(kit);
-		}else
+		if(numeroKit==getCantidadTest())
 		{
 			throw new ReactivosException("Cantidad de test superada", p);
+		
+		}else
+		{
+			numeroKit++;
+			int numKit = numeroKit;
+			KitReactivo kit = new KitReactivo(numKit);
+			p.setKit(kit);
 		}
 	}
 	
 	
-	public void BucleAsignamiento(Scanner scan)
+	public void BucleAsignamiento(Scanner scan,int inicio)
 	{
 		String opcion="x";
 		try {
 				
-				for(int i=0;i<getListado().size();i++)
+				while(inicio<getListado().size())
 				{
-					asignarKit(listado.get(i));
+					asignarKit(listado.get(inicio));
+					inicio++;
 				}
 			} catch (ReactivosException e) {
 				System.out.println(e.getMessage());
@@ -116,6 +119,7 @@ public class SSM {
 					setCantidadTest(nuevos);
 				}
 				System.out.println("STOCK DE REACTIVOS RENOVADO.");
+				BucleAsignamiento(scan,inicio);
 			}
 	}
 
@@ -133,12 +137,15 @@ public class SSM {
 	public void BucleTesteos()
 	{
 		int i=0;
-		while(listado.get(i).getKit().getNumeroKit()!=(-1))
-		{
-			testear(listado.get(i));
-			i++;
+		
+			while((i<listado.size())&&(listado.get(i).getKit().getNumeroKit()!=(-1)))
+			{
+				System.out.println("entra");
+				testear(listado.get(i));
+				i++;
+			}
 		}
-	}
+			
 	
 	
 	public void buscarCasos() throws AlertaException

@@ -17,14 +17,16 @@ import clases.SSM;
 public class Main {
 
 	public static void main(String[] args)  {
-		SSM servicioSalud = new SSM(2);
+		SSM servicioSalud = new SSM(4);
+		
+		System.out.println(servicioSalud.getCantidadTest());
 		Binarios archivos = new Binarios();
 		Utiles json = new Utiles();
 		Scanner scan = new Scanner(System.in);
 		String opcion = "x";
 		
 		Persona persona1 = new Persona("Carlos Gutierrez", 25, "La Perla", "30258369", "Abogado");
-		Persona persona10 = new Persona("Juan Perez", 25, "Centro", "39762762", "Arquitecto");
+		//Persona persona10 = new Persona("Juan Perez", 25, "Centro", "39762762", "Arquitecto");
 		Persona persona2 = new Persona("Juan Perez", 25, "Centro", "39762762", "Arquitecto");
 		Persona persona3 = new Persona("Jose Sosa", 25, "Constitucion", "21871389", "Grafico");
 		Persona persona4 = new Persona("Lucia Valverde", 25, "Varese", "23555666", "Profesor");
@@ -32,7 +34,7 @@ public class Main {
 		Persona persona6 = new Persona("Delfina Lion", 25, "La Florida", "44336432", "Ingeniero");
 
 		servicioSalud.setListado(persona1);
-		servicioSalud.setListado(persona10);
+		//servicioSalud.setListado(persona10);
 
 		servicioSalud.setListado(persona2);
 		servicioSalud.setListado(persona3);
@@ -40,7 +42,11 @@ public class Main {
 		servicioSalud.setListado(persona5);
 		servicioSalud.setListado(persona6);
 		
-		servicioSalud.BucleAsignamiento(scan);
+		System.out.println("REGISTRO DE PERSONAS");
+		System.out.println(servicioSalud.getListado().toString());
+		
+		servicioSalud.BucleAsignamiento(scan,0);
+		System.out.println("listado size"+servicioSalud.getListado().size());
 		servicioSalud.BucleTesteos();
 		
 		try {
@@ -54,7 +60,7 @@ public class Main {
 		JSONArray aislados = new JSONArray();
 
 		int x=0;
-		while((servicioSalud.getListado().get(x).getKit().getNumeroKit()!=(-1)))
+		while((x<servicioSalud.getListado().size()))
 		{
 			if(servicioSalud.getListado().get(x).getTemperatura()<38)
 			{
@@ -99,8 +105,7 @@ public class Main {
 		
 		
 		
-		System.out.println("REGISTRO DE PERSONAS");
-		System.out.println(servicioSalud.getListado().toString());
+		
 
 		
 		
